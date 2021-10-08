@@ -4,8 +4,8 @@ import perfil from '../../media/profile.jpeg'
 const Admin = () => {
   return <div>
         <section className="relative block" style={{ height: "500px" }}>
-          <h1 className="pt-20 mb-0 text-xl text-gray-700 text-center">¡Bienvenido!</h1>
-          <h1 className="pt-8 mb-0 text-5xl font-bold text-gray-700 text-center">Panel de Administración</h1>
+          <h1 className="pt-20 mb-0 text-xl text-white text-center">¡Bienvenido!</h1>
+          <h1 className="pt-8 mb-0 text-5xl font-bold text-white text-center">Panel de Administración</h1>
           <div className="absolute top-0 w-full h-full bg-center bg-cover">
             <span className=" w-full h-full  opacity-50 "></span>
           </div>
