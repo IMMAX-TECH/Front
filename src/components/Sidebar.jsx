@@ -12,7 +12,7 @@ const Sidebar = () => {
     <div class="flex flex-col items-center justify-center h-20 ">
       <div ><img className="px-2 pt-10" src={Logo} alt="logo" width="80" /></div>
       
-      <h1 class="text-xl uppercase text-white text-bold shadow-md">IMMU</h1>
+      <h1 class="text-xl uppercase text-white text-bold shadow-md">IMMAX TECH</h1>
     </div>
     <ul class="flex flex-col py-10 mt-80 items-center ">
       <li>

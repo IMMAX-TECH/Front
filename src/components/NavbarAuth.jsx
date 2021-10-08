@@ -9,7 +9,7 @@ const Navbar = () => {
     <nav class="flex items-center justify-between flex-wrap bg-gradient-to-r from-gray-900 via-gray-700 to-gray-500  text-white font-bold w-100">
         <div class="flex flex-1 items-center flex-shrink-0 text-white mr-6">
             <img class="fill-current ml-2 w-6 items-center" src={brand} alt="logo" />
-            <span class="p-2 m-2 tracking-tight">IMMU</span>
+            <span class="p-2 m-2 tracking-tight">IMMAX TECH</span>
         </div>
         
         <Link to='/'>
