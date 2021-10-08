@@ -56,7 +56,7 @@ const Productos = () => {
                 Gestión de Productos
               </h2>
               <div className = "flex flex-col ">
-              <button onClick={() => {setMostrarTabla(!mostrarTabla);}}className=" shadow-md bg-gray-900 from-black via-gray-700 to-gray-900 text-gray-300 p-2 rounded m-6" >
+              <button onClick={() => {setMostrarTabla(!mostrarTabla);}}className=" shadow-md bg-blue-900 border border-black font-semibold text-gray-200 p-2 rounded m-6" >
                 {textoBoton}
               </button>
               </div>
@@ -87,11 +87,11 @@ const Productos = () => {
             <table className="tabla ">
               <thead>
                 <tr>
-                  <th className="bg-gray-800 text-gray-200 from-green-800  "> Referencia</th>
-                  <th className="bg-gray-800 text-gray-200 from-green-800 "> Nombre</th>
-                  <th className="bg-gray-800 text-gray-200 from-green-800 "> Marca</th>
-                  <th className="bg-gray-800 text-gray-200 from-green-800 "> Modelo</th>
-                  <th className="bg-gray-800 text-gray-200 from-green-800 to-gray-50 ">Modificar</th>  
+                  <th className="bg-blue-900 text-gray-200   "> Referencia</th>
+                  <th className="bg-blue-900 text-gray-200  "> Nombre</th>
+                  <th className="bg-blue-900 text-gray-200  "> Marca</th>
+                  <th className="bg-blue-900 text-gray-200  "> Modelo</th>
+                  <th className="bg-blue-900 text-gray-200  ">Modificar</th>  
                 </tr>
               </thead>
               <tbody>
@@ -138,7 +138,7 @@ const Productos = () => {
       
         return (
           <div className='flex flex-col items-center justify-center'>
-            <h2 className='text-2xl font-extrabold pb-4 text-black'>Nuevo Producto</h2>
+            <h2 className='text-2xl font-extrabold pb-4 text-gray-200 '>Nuevo Producto</h2>
             <form ref={form} onSubmit={submitForm} className='flex flex-col justify-center text-center'>
               <label className='flex flex-col py-2 text-black  font-semibold' htmlFor='referencia'>
                 Referencia
@@ -185,7 +185,7 @@ const Productos = () => {
               
               <button
                 type='submit'
-                className='col-span-2 py-3 bg-black from-white via-green-900 to-green-900  text-gray-300 p-2 rounded shadow-md'
+                className='col-span-2 py-3 bg-blue-900 font-semibold  text-gray-200 p-2 rounded shadow-md'
               >
                 Guardar
               </button>
