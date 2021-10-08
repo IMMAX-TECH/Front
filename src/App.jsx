@@ -4,8 +4,6 @@ import Index from 'pages/Index';
 import Admin from 'pages/admin/Index';
 import Ventas from 'pages/admin/Ventas';
 import Usuarios from 'pages/admin/Usuarios';
-import Infousuarios from 'pages/admin/Infousuarios';
-import Info from 'pages/admin/Info';
 import Login from 'pages/auth/Login';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import 'styles/styles.css';
@@ -19,26 +17,18 @@ function App() {
     <div className='App'>
       <Router>
         <Switch>
-          <Route path={['/admin', '/admin/productos', '/admin/Info', '/admin/usuarios', '/admin/Infousuarios' ]}>
+          <Route path={['/admin', '/admin/productos', '/admin/usuarios' ]}>
             <PrivateLayout>
               <Switch>
                 <Route path='/admin/productos'>
                   <Productos />
                   </Route>
-                  <Route path = '/admin/Info'>
-                    <Info/> 
-                  </Route>  
                 <Route path='/admin/ventas'>
                   <Ventas/>
                 </Route>
                 <Route path='/admin/usuarios'>
                   <Usuarios/>
                 </Route>
-                <Route path = '/admin/Infousuarios'>
-                  <Infousuarios/>
-                </Route>
-                 
-              
                 <Route path='/admin'>
                   <Admin />
                 </Route>

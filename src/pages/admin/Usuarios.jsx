@@ -54,7 +54,7 @@ const Usuarios = () => {
                 Gestión de usuarios
               </h2>
               <div className = "flex flex-col ">
-              <button onClick={() => {setMostrarTabla(!mostrarTabla);}}className=" shadow-md bg-indigo-900 border border-black font-semibold text-gray-200 p-2 rounded m-6" >
+              <button onClick={() => {setMostrarTabla(!mostrarTabla);}}className=" shadow-md bg-black border border-black font-semibold text-gray-200 p-2 rounded m-6" >
                 {textoBoton}
               </button>
               </div>
@@ -77,11 +77,26 @@ const Usuarios = () => {
         useEffect(() => {
           console.log('este es el listado de usuarios en el componente de tabla', listausuarios);
         }, [listausuarios]);
+        const [busqueda, setBusqueda] = useState('');
+        const [usuariosFiltrados, setUsuariosFiltrados] = useState(listausuarios);
+      
+        useEffect(() => {
+          setUsuariosFiltrados(
+            listausuarios.filter((elemento) => {
+              return JSON.stringify(elemento).toLowerCase().includes(busqueda.toLowerCase());
+            })
+          );
+        }, [busqueda, listausuarios]);
         return (
 
         
           <div className='flex flex-col items-center justify-center'>
-            
+                <input
+        value={busqueda}
+        onChange={(e) => setBusqueda(e.target.value)}
+        placeholder='Buscar'
+        className='border-2  px-2 py-1 my-6 self-start rounded-md focus:outline-none focus:border-gray-700'
+            /> 
             <table className="tabla ">
               <thead>
                 <tr>
@@ -92,7 +107,7 @@ const Usuarios = () => {
                 </tr>
               </thead>
               <tbody>
-                {listausuarios.map((usuario) => {
+                {usuariosFiltrados.map((usuario) => {
                   return (
                     <tr key={nanoid()}>
                       <td className=" text-center text-black">{usuario.nombre}</td>
@@ -186,7 +201,7 @@ const Usuarios = () => {
               
               <button
                 type='submit'
-                className='col-span-2 py-3 bg-indigo-900 font-semibold  text-gray-200 p-2 rounded shadow-md'
+                className='col-span-2 py-3 bg-black font-semibold  text-gray-200 p-2 rounded shadow-md'
               >
                 Guardar
               </button>

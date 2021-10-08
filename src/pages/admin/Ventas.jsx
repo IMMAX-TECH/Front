@@ -25,35 +25,9 @@ const ventasBackend = [
     valor: 1500,
    
   },
-  {
-    factura: '021',
-    producto: 'Procesador 2',
-    fecha: 2017,
-    valor: 300,
-    
-  },
-  {
-    factura: '066',
-    producto: 'Procesador 5',
-    fecha: 2012,
-    valor: 1200,
-    
-  },
-  {
-    factura: '032',
-    producto: 'Procesador 4',
-    fecha: 2020,
-    valor: 800,
-    
-  },
 
-  {
-    factura: '003',
-    producto: 'Procesador 2',
-    fecha: 2015,
-    valor: 300,
-    
-  },
+
+  
   
 ];
 
@@ -78,16 +52,16 @@ const Ventas = () => {
     }
   }, [mostrarTabla]);
   return (
-    <div className='flex h-full w-full flex-col items-center justify-start p-8'>
-      <div className='flex flex-col'>
-        <h2 className='text-3xl font-extrabold text-gray-800'>
+    <div className='flex h-full w-full flex-col items-center justify-start p-56'>
+      <div className='flex flex-col p-10'>
+        <h2 className='text-3xl font-extrabold text-gray-200'>
           Administración de Ventas
         </h2>
         <button
           onClick={() => {
             setMostrarTabla(!mostrarTabla);
           }}
-          className={`shadow-md bg-gradient-to-r from-gray-800 via-gray-700 to-gray-900 text-gray-300 p-2 rounded m-6  self-center`}
+          className={`shadow-md bg-black  text-gray-300 p-2 rounded m-6  self-center`}
         >
           {textoBoton}
         </button>
@@ -110,26 +84,40 @@ const TablaVentas = ({ listaVentas }) => {
   useEffect(() => {
     console.log('este es el listado de ventas en el componente de tabla', listaVentas);
   }, [listaVentas]);
+
+  const [busqueda, setBusqueda] = useState('');
+        const [ventasFiltradas, setVentasFiltrados] = useState(listaVentas);
+
+  useEffect(() => {
+    setVentasFiltrados(
+      listaVentas.filter((elemento) => {
+        return JSON.stringify(elemento).toLowerCase().includes(busqueda.toLowerCase());
+      })
+    );
+  }, [busqueda, listaVentas]);
   return (
     <div className='flex flex-col items-center justify-center'>
-      
+       <input
+        value={busqueda}
+        onChange={(e) => setBusqueda(e.target.value)}
+        placeholder='Buscar'
+        className='border-2  px-2 py-1 my-6 self-start rounded-md focus:outline-none focus:border-gray-700'
+            /> 
       <table className="tabla rounded">
         <thead>
           <tr>
-            <th className="bg-gradient-to-r from-gray-800 via-gray-700 to-gray-900  text-gray-300"> Nº Factura</th>
-            <th className="bg-gradient-to-r from-gray-800 via-gray-700 to-gray-900  text-gray-300"> Producto</th>
-            <th className="bg-gradient-to-r from-gray-800 via-gray-700 to-gray-900  text-gray-300">Fecha Venta</th>
-            <th className="bg-gradient-to-r from-gray-800 via-gray-700 to-gray-900  text-gray-300">Precio USD</th>
-            <th className="bg-gradient-to-r from-gray-800 via-gray-700 to-gray-900  text-gray-300">Acciones</th>  
+            <th className="bg-green-900 text-gray-200  "> Factura</th>
+            <th className="bg-green-900 text-gray-200  "> Producto</th>
+            <th className="bg-green-900 text-gray-200  ">Precio </th>
+            <th className="bg-green-900 text-gray-200  ">Acciones</th>  
           </tr>
         </thead>
         <tbody>
-          {listaVentas.map((venta) => {
+          {ventasFiltradas.map((venta) => {
             return (
               <tr key={nanoid()}>
                 <td className=" text-center text-gray-800">{venta.factura}</td>
                 <td className=" text-center text-gray-800">{venta.producto}</td>
-                <td className=" text-center text-gray-800">{venta.fecha}</td>
                 <td className=" text-center text-gray-800">{venta.valor}</td>
                 <td>
                   <div className="flex w-full justify-around text-gray-800 ">
@@ -166,61 +154,49 @@ const FormularioCreacionVentas = ({ setMostrarTabla, listaVentas, setVentas }) =
 
   return (
     <div className='flex flex-col items-center justify-center'>
-      <h2 className='text-2xl font-extrabold pb-4 text-gray-800'>Nueva Venta</h2>
+      <h2 className='text-2xl font-extrabold pb-4 text-gray-200'>Nueva Venta</h2>
       <form ref={form} onSubmit={submitForm} className='flex flex-col justify-center text-center'>
-        <label className='flex flex-col py-2 text-gray-800' htmlFor='factura'>
+        <label className='flex flex-col py-2 text-black  font-semibold' htmlFor='factura'>
           Número de Factura
           <input
             name='factura'
-            className='bg-gray-50 border border-gray-600 p-2 rounded-lg m-2'
+            className='bg-gray-50 border border-gray-200 p-2 rounded-lg m-2'
             type='number'
-            placeholder='Ej: 001'
             required/>
         </label>
-        <label className='flex flex-col py-2 text-gray-800' htmlFor='producto'>
+        <label className='flex flex-col py-2 text-black  font-semibold' htmlFor='producto'>
           Producto
           <select
-            className='bg-gray-50 border border-gray-600 p-2 rounded-lg m-2'
+            className='bg-gray-50 border border-gray-200 p-2 rounded-lg m-2'
             name='producto'
             required
             defaultValue={0}>
             <option disabled value={0}>
               Elija una Opción
             </option>
-            <option>Procesador 1</option>
-            <option>Procesador 2</option>
-            <option>Procesador 3</option>
-            <option>Procesador 4</option>
-            <option>Procesador 5</option>
-            <option>Procesador 6</option>
+            <option>Producto 1</option>
+            <option>Producto 2</option>
+            <option>Producto 3</option>
+            <option>Producto 4</option>
+            <option>Producto 5</option>
+            <option>Producto 6</option>
           </select>
         </label>
-        <label className='flex flex-col py-2 text-gray-800' htmlFor='fecha'>
-          Fecha de Venta
-          <input
-            name='fecha'
-            className='bg-gray-50 border border-gray-600 p-2 rounded-lg m-2'
-            type='number'
-            min={1992}
-            max={2022}
-            placeholder='Ej: 2014'
-            required/>
-        </label>
-        <label className='flex flex-col py-2 text-gray-800' htmlFor='precio'>    
+       
+        <label className='flex flex-col py-2 text-black  font-semibold' htmlFor='precio'>    
           Precio de Venta
           <input
             name='precio'
-            className='bg-gray-50 border border-gray-600 p-2 rounded-lg m-2'
+            className='bg-gray-50 border border-gray-200 p-2 rounded-lg m-2'
             type='number'
-            min={230}
+            min={0}
             max={1500}
-            placeholder='Ej: 230'
             required/>
         </label>
         
         <button
           type='submit'
-          className='col-span-2 py-3 bg-gradient-to-r from-gray-800 via-gray-700 to-gray-900  text-gray-300 p-2 rounded-full shadow-md hover:bg-blue-600'
+          className='col-span-2 py-3 bg-black font-semibold  text-gray-200 p-2 rounded shadow-md'
         >
           Guardar Venta
         </button>

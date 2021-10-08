@@ -38,14 +38,6 @@ const Registro = () => {
                         placeholder="Ejemplo: tucorreo@mail.com"/>
                     </div>
                     <div class="relative w-full mb-3">
-                      <label class="block uppercase text-gray-700 text-xs font-bold mb-2" for="grid-password">Número Telefónico</label>
-                      <input
-                        type="number"
-                        required
-                        class="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
-                        placeholder="Escribe aquí tu número telefónico"/>
-                    </div>
-                    <div class="relative w-full mb-3">
                       <label class="block uppercase text-gray-700 text-xs font-bold mb-2" for="grid-password">Contraseña</label>
                       <input
                         type="password"

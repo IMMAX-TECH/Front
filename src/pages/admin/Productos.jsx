@@ -4,6 +4,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import {nanoid} from 'nanoid';
 
 
+
 const productosBackend = [
     {
       referencia: '001',
@@ -34,6 +35,9 @@ const Productos = () => {
         const [mostrarTabla, setMostrarTabla] = useState(true);
         const [productos, setProductos] = useState([]);
         const [textoBoton, setTextoBoton] = useState('Agregar Nuevo');
+       
+
+      
         
       
         useEffect(() => {
@@ -56,13 +60,13 @@ const Productos = () => {
                 Gestión de Productos
               </h2>
               <div className = "flex flex-col ">
-              <button onClick={() => {setMostrarTabla(!mostrarTabla);}}className=" shadow-md bg-blue-900 border border-black font-semibold text-gray-200 p-2 rounded m-6" >
+              <button onClick={() => {setMostrarTabla(!mostrarTabla);}}className=" shadow-md bg-black border border-black font-semibold text-gray-200 p-2 rounded m-6" >
                 {textoBoton}
               </button>
               </div>
             </div>
             {mostrarTabla ? (
-              <TablaProductos listaProductos={productos} />
+              <TablaProductos listaProductos={productos}  />
             ) : (
               <FormularioCreacionProductos
                 setMostrarTabla={setMostrarTabla}
@@ -75,15 +79,31 @@ const Productos = () => {
         );
       };
       
-      const TablaProductos = ({ listaProductos }) => {
+      const TablaProductos = ({ listaProductos, setEjecutarConsulta }) => {
         useEffect(() => {
           console.log('este es el listado de productos en el componente de tabla', listaProductos);
         }, [listaProductos]);
+        const [busqueda, setBusqueda] = useState('');
+        const [productosFiltrados, setProductosFiltrados] = useState(listaProductos);
+      
+        useEffect(() => {
+          setProductosFiltrados(
+            listaProductos.filter((elemento) => {
+              return JSON.stringify(elemento).toLowerCase().includes(busqueda.toLowerCase());
+            })
+          );
+        }, [busqueda, listaProductos]);
+
         return (
 
         
           <div className='flex flex-col items-center justify-center'>
-            
+             <input
+        value={busqueda}
+        onChange={(e) => setBusqueda(e.target.value)}
+        placeholder='Buscar'
+        className='border-2  px-2 py-1 my-6 self-start rounded-md focus:outline-none focus:border-gray-700'
+            />     
             <table className="tabla ">
               <thead>
                 <tr>
@@ -95,7 +115,7 @@ const Productos = () => {
                 </tr>
               </thead>
               <tbody>
-                {listaProductos.map((producto) => {
+                {productosFiltrados.map((producto) => {
                   return (
                     <tr key={nanoid()}>
                       <td className=" text-center text-black">{producto.referencia}</td>
@@ -185,7 +205,7 @@ const Productos = () => {
               
               <button
                 type='submit'
-                className='col-span-2 py-3 bg-blue-900 font-semibold  text-gray-200 p-2 rounded shadow-md'
+                className='col-span-2 py-3 bg-black font-semibold  text-gray-200 p-2 rounded shadow-md'
               >
                 Guardar
               </button>
