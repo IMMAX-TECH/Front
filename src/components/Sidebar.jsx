@@ -32,7 +32,7 @@ const Sidebar = () => {
         </Link>
       </li>
       <li>
-      <Link to='/admin/Procesadores'>
+      <Link to='/admin/Productos'>
           <a href="#" class="flex flex-col items-center h-16 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-300 hover:text-gray-500">
             <span class="inline-flex items-center  h-12 w-12 text-lg text-gray-400"></span>
             <span class="text-sm font-medium">Productos</span>

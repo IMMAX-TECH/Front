@@ -140,34 +140,34 @@ const Productos = () => {
           <div className='flex flex-col items-center justify-center'>
             <h2 className='text-2xl font-extrabold pb-4 text-black'>Nuevo Producto</h2>
             <form ref={form} onSubmit={submitForm} className='flex flex-col justify-center text-center'>
-              <label className='flex flex-col py-2 text-gray-200  font-semibold' htmlFor='referencia'>
+              <label className='flex flex-col py-2 text-black  font-semibold' htmlFor='referencia'>
                 Referencia
                 <input
                   name='factura'
-                  className='bg-gray-50 border border-gray-600 p-2 rounded-lg m-2'
+                  className='bg-gray-50 border border-gray-200 p-2 rounded-lg m-2'
                   type='number'
                   required/>
               </label>
-              <label className='flex flex-col py-2 text-gray-200 font-semibold' htmlFor='nombre'>
+              <label className='flex flex-col py-2 text-black font-semibold' htmlFor='nombre'>
                 Nombre
                 <input
                   name='factura'
-                  className='bg-gray-50 border border-gray-600 p-2 rounded-lg m-2'
+                  className='bg-gray-50 border border-gray-200 p-2 rounded-lg m-2'
                   type='text'
                   required/>
               </label>
-              <label className='flex flex-col py-2 text-gray-200  font-semibold' htmlFor='marca'>
+              <label className='flex flex-col py-2 text-black font-semibold' htmlFor='marca'>
                 Marca
                 <input
                   name='text'
-                  className='bg-gray-50 border border-gray-600 p-2 rounded-lg m-2'
+                  className='bg-gray-50 border border-gray-200 p-2 rounded-lg m-2'
                   type='text'
                   required/>
               </label>
-              <label className='flex flex-col py-2 text-gray-200  font-semibold' htmlFor='modelo'>
+              <label className='flex flex-col py-2 text-black  font-semibold' htmlFor='modelo'>
                 Modelo
                 <select
-                  className='bg-gray-50 border border-gray-600 p-2 rounded-lg m-2'
+                  className='bg-gray-50 border border-gray-200 p-2 rounded-lg m-2'
                   name='modelo'
                   required
                   defaultValue={0}>
