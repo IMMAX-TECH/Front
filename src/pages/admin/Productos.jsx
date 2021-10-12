@@ -2,34 +2,11 @@ import React, { useEffect, useState, useRef } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {nanoid} from 'nanoid';
-import axios from "axios";
+import { obtenerEquipo, crearEquipo, editarEquipo, eliminarEquipo} from 'utils/api';
 
 
 
 
-const productosBackend = [
-    {
-      referencia: '001',
-      nombre: 'Producto 1',
-      marca: 2020,
-      modelo: 230,
-      
-    },
-    {
-      referencia: '030',
-      nombre: 'Producto 2',
-      marca: 2010,
-      modelo: 400,
-      
-    },
-   
-  
-  
-   
-  
-   
-    
-  ];
 
 
 const Productos = () => {
@@ -37,14 +14,33 @@ const Productos = () => {
         const [mostrarTabla, setMostrarTabla] = useState(true);
         const [productos, setProductos] = useState([]);
         const [textoBoton, setTextoBoton] = useState('Agregar Nuevo');
-       
-
+        const [ejecutarConsulta, setEjecutarConsulta] = useState(true);
+        useEffect(() => {
+          console.log('consulta', ejecutarConsulta);
+          if (ejecutarConsulta) {
+            obtenerEquipo(
+              (response) => {
+                console.log('la respuesta que se recibio fue', response);
+                setProductos(response.data);
+              },
+              (error) => {
+                console.error('Salio un error:', error);
+              }
+            );
+            setEjecutarConsulta(false);
+          }
+        }, [ejecutarConsulta]);
+      
+        useEffect(() => {
+          //obtener lista de vehículos desde el backend
+          if (mostrarTabla) {
+            setEjecutarConsulta(true);
+          }
+        }, [mostrarTabla]);
       
         
       
-        useEffect(() => {
-          setProductos(productosBackend);
-        }, []);
+       
       
         useEffect(() => {
           if (mostrarTabla) {
@@ -149,7 +145,6 @@ const Productos = () => {
 
       const FilaProducto = ({ producto, setEjecutarConsulta }) => {
         const [edit, setEdit] = useState(false);
-        
         const [infoNuevoProducto, setInfoNuevoProducto] = useState({
           _id: producto._id,
           referencia: producto.referencia,
@@ -160,26 +155,28 @@ const Productos = () => {
       
         const actualizarProducto = async () => {
           //enviar la info al backend
-          const options = {
-            method: 'PATCH',
-            url: `http://localhost:5000/Productos/${producto._id}/`,
-            headers: { 'Content-Type': 'application/json' },
-            data: { ...infoNuevoProducto },
-          };
-      
-          await axios
-            .request(options)
-            .then(function (response) {
+          await editarEquipo(
+            producto._id,
+            {
+              referencia: infoNuevoProducto.referencia,
+              nombre: infoNuevoProducto.nombre,
+              marca: infoNuevoProducto.marca,
+              modelo: infoNuevoProducto.modelo,
+            },
+            (response) => {
               console.log(response.data);
               toast.success('Producto modificado con éxito');
               setEdit(false);
               setEjecutarConsulta(true);
-            })
-            .catch(function (error) {
+            },
+            (error) => {
               toast.error('Error modificando el producto');
               console.error(error);
-            });
+            }
+          );
         };
+      
+         
   
       
         return (
@@ -277,20 +274,33 @@ const Productos = () => {
       const FormularioCreacionProductos = ({ setMostrarTabla, listaProductos, setProductos }) => {
         const form = useRef(null);
       
-        const submitForm = (e) => {
+        const submitForm = async (e) => {
           e.preventDefault();
           const fd = new FormData(form.current);
-          
+      
           const nuevoProducto = {};
           fd.forEach((value, key) => {
             nuevoProducto[key] = value;
           });
       
-          setMostrarTabla(true);
-          setProductos([...listaProductos, nuevoProducto]);
-          toast.success('Venta Agregada Exitosamente');
-          
-        };
+          await crearEquipo(
+            {
+              referencia: nuevoProducto.referencia,
+              nombre: nuevoProducto.nombre,
+              marca: nuevoProducto.marca,
+              modelo: nuevoProducto.modelo,
+            },
+            (response) => {
+              console.log(response.data);
+              toast.success('Producto agregado con éxito');
+            },
+            (error) => {
+              console.error(error);
+              toast.error('Error creando un producto');
+            }
+          );
+           setMostrarTabla(true);
+         };
       
         return (
           <div className='flex flex-col items-center justify-center'>
