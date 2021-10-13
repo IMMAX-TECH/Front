@@ -3,29 +3,10 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {nanoid} from 'nanoid';
 import axios from "axios";
+import { obtenerUsuario, editarUsuario, crearUsuario } from 'utils/api';
 
 
-const usuariosBackend = [
-    {
-      nombre: 'Angel',   
-      estado: "Pendiente",
-      rol: "Admin",
-      
-    },
-    {
-      nombre: 'Luis',
-      estado: "Autorizado",
-      rol: "Vendedor",
-      
-    },
-   
-  
-  
-   
-  
-   
-    
-  ];
+
 
 
 const Usuarios = () => {
@@ -33,11 +14,31 @@ const Usuarios = () => {
         const [mostrarTabla, setMostrarTabla] = useState(true);
         const [usuarios, setUsuarios] = useState([]);
         const [textoBoton, setTextoBoton] = useState('Agregar Nuevo');
+        const [ejecutarConsulta, setEjecutarConsulta] = useState(true);
         
       
         useEffect(() => {
-          setUsuarios(usuariosBackend);
-        }, []);
+          console.log('consulta', ejecutarConsulta);
+          if (ejecutarConsulta) {
+            obtenerUsuario(
+              (response) => {
+                console.log('la respuesta que se recibio fue', response);
+                setUsuarios(response.data);
+              },
+              (error) => {
+                console.error('Salio un error:', error);
+              }
+            );
+            setEjecutarConsulta(false);
+          }
+        }, [ejecutarConsulta]);
+      
+        useEffect(() => {
+          //obtener lista de usuarios desde el backend
+          if (mostrarTabla) {
+            setEjecutarConsulta(true);
+          }
+        }, [mostrarTabla]);
       
         useEffect(() => {
           if (mostrarTabla) {
@@ -143,25 +144,24 @@ const Usuarios = () => {
       
         const actualizarUsuario = async () => {
           //enviar la info al backend
-          const options = {
-            method: 'PATCH',
-            url: `http://localhost:5000/Usuarios/${usuario._id}/`,
-            headers: { 'Content-Type': 'application/json' },
-            data: { ...infoNuevoUsuario },
-          };
-      
-          await axios
-            .request(options)
-            .then(function (response) {
+          await editarUsuario(
+            usuario._id,
+            {
+              rol: infoNuevoUsuario.rol,
+              estado: infoNuevoUsuario.estado,
+          
+            },
+            (response) => {
               console.log(response.data);
               toast.success('Usuario modificado con éxito');
               setEdit(false);
               setEjecutarConsulta(true);
-            })
-            .catch(function (error) {
-              toast.error('Error modificando el usuario');
+            },
+            (error) => {
+              //toast.error('Error modificando el producto');
               console.error(error);
-            });
+            }
+          );
         };
   
       
@@ -254,20 +254,33 @@ const Usuarios = () => {
       const FormularioCreacionUsuarios = ({ setMostrarTabla, listausuarios, setusuarios }) => {
         const form = useRef(null);
       
-        const submitForm = (e) => {
+        const submitForm = async (e) => {
           e.preventDefault();
           const fd = new FormData(form.current);
-          
+      
           const nuevousuario = {};
           fd.forEach((value, key) => {
             nuevousuario[key] = value;
           });
       
-          setMostrarTabla(true);
-          setusuarios([...listausuarios, nuevousuario]);
-          toast.success('Venta Agregada Exitosamente');
-          
-        };
+          await crearUsuario(
+            {
+              nombre: nuevousuario.nombre,
+              rol: nuevousuario.rol,
+              estado: nuevousuario.estado,
+
+            },
+            (response) => {
+              console.log(response.data);
+              toast.success('Usuario agregado con éxito');
+            },
+            (error) => {
+              console.error(error);
+              toast.error('Error creando un usuario');
+            }
+          );
+           setMostrarTabla(true);
+         };
       
         return (
           <div className='flex flex-col items-center justify-center'>
@@ -279,8 +292,8 @@ const Usuarios = () => {
                   name='nombre'
                   className='bg-gray-50 border border-gray-200 p-2 rounded-lg m-2'
                   type='text'
-                  disabled
-                  required/>
+                  
+                  />
               </label>
               <label className='flex flex-col py-2 text-black font-semibold' htmlFor='correo'>
                 Correo

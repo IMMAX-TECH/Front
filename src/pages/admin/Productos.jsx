@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {nanoid} from 'nanoid';
-import { obtenerEquipo, crearEquipo, editarEquipo, eliminarEquipo} from 'utils/api';
+import { obtenerProducto, crearProducto, editarProducto, eliminarProducto} from 'utils/api';
 
 
 
@@ -18,7 +18,7 @@ const Productos = () => {
         useEffect(() => {
           console.log('consulta', ejecutarConsulta);
           if (ejecutarConsulta) {
-            obtenerEquipo(
+            obtenerProducto(
               (response) => {
                 console.log('la respuesta que se recibio fue', response);
                 setProductos(response.data);
@@ -32,7 +32,7 @@ const Productos = () => {
         }, [ejecutarConsulta]);
       
         useEffect(() => {
-          //obtener lista de vehículos desde el backend
+          //obtener lista de productos desde el backend
           if (mostrarTabla) {
             setEjecutarConsulta(true);
           }
@@ -155,7 +155,7 @@ const Productos = () => {
       
         const actualizarProducto = async () => {
           //enviar la info al backend
-          await editarEquipo(
+          await editarProducto(
             producto._id,
             {
               referencia: infoNuevoProducto.referencia,
@@ -170,7 +170,7 @@ const Productos = () => {
               setEjecutarConsulta(true);
             },
             (error) => {
-              toast.error('Error modificando el producto');
+              //toast.error('Error modificando el producto');
               console.error(error);
             }
           );
@@ -283,7 +283,7 @@ const Productos = () => {
             nuevoProducto[key] = value;
           });
       
-          await crearEquipo(
+          await crearProducto(
             {
               referencia: nuevoProducto.referencia,
               nombre: nuevoProducto.nombre,
