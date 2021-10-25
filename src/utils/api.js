@@ -55,7 +55,7 @@ export const eliminarProducto = async (id, successCallback, errorCallback) => {
 export const obtenerUsuario = async (successCallback, errorCallback) => {
   const options = { 
     method: 'GET', 
-    url: 'https://nameless-castle-28783.herokuapp.com/usuarios',
+    url: 'https://nameless-castle-28783.herokuapp.com/usuarios/',
     headers: {
       Authorization : getToken (),
     },
@@ -66,7 +66,7 @@ export const obtenerUsuario = async (successCallback, errorCallback) => {
 export const obtenerUsuario1 = async (successCallback, errorCallback) => {
   const options = { 
     method: 'GET', 
-    url: 'https://nameless-castle-28783.herokuapp.com/usuarios',
+    url: 'https://nameless-castle-28783.herokuapp.com/usuarios/',
     headers: {
       Authorization : getToken (),
     },
@@ -77,7 +77,7 @@ export const obtenerUsuario1 = async (successCallback, errorCallback) => {
 export const obtenerDatosUsuario = async (successCallback, errorCallback) => {
   const options = {
     method: 'GET',
-    url: 'https://nameless-castle-28783.herokuapp.com/usuarios/self',
+    url: 'https://nameless-castle-28783.herokuapp.com/usuarios/self/',
     headers: {
       Authorization: getToken(), 
     },
@@ -120,7 +120,7 @@ export const obtenerVenta = async (successCallback, errorCallback) => {
 export const crearVenta = async (data, successCallback, errorCallback) => {
   const options = {
     method: 'POST',
-    url: 'https://nameless-castle-28783.herokuapp.com/ventas',
+    url: 'https://nameless-castle-28783.herokuapp.com/ventas/',
     headers: { 'Content-Type': 'application/json' },
     data,
   };
