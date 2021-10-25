@@ -3,6 +3,10 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {nanoid} from 'nanoid';
 import { obtenerVenta, crearVenta, editarVenta} from 'utils/api';
+import { obtenerProducto } from 'utils/api';
+import { obtenerUsuario } from 'utils/api';
+import Productos from './Productos';
+import axios from 'axios';
 
 const Ventas = () => {
   const [mostrarTabla, setMostrarTabla] = useState(true);
@@ -165,7 +169,54 @@ const TablaVentas = ({ listaVentas, setEjecutarConsulta }) => {
           );
         };
 
+        const [producto, setProducto] = useState([]);
+        const [usuario, setUsuario] = useState([]);
+          const form = useRef(null);
 
+          useEffect(() => {
+            obtenerProducto(setProducto);
+            obtenerUsuario(setUsuario);
+          })
+
+          useEffect(() => {
+            console.log(producto);
+          }, [producto]);
+
+          useEffect(() => {
+            console.log(usuario);
+          }, [usuario]);
+
+          const submitForm = async (e) => {
+            e.preventDefault();
+            const fd = new FormData(form.current);
+
+            const nuevaVenta = {};
+            fd.forEach((value, key) => {
+              nuevaVenta[key] = value;
+            });
+
+            const informacionCosolidada = {
+              producto: producto.filter((el) => el._id === nuevaVenta.producto)[0],
+              vendedor: usuario.filter((el) => el._id === nuevaVenta.vendedor) [0],
+            };
+            console.log(informacionCosolidada);
+
+            const options = {
+              method: 'POST',
+              ulr: 'http://localhost:5000/ventas/',
+              headers: { 'Content-Type': 'application/json'},
+              data: informacionCosolidada,
+            };
+
+            await axios
+            .request(options)
+            .then(function (response) {
+              console.log(response.date);
+            })
+            .catch(function(error) {
+              console.error(error);
+            });
+          };
   
       
         return (
@@ -179,16 +230,17 @@ const TablaVentas = ({ listaVentas, setEjecutarConsulta }) => {
                 <select
                   className='bg-gray-50 border border-gray-200 p-2 rounded-lg m-2'
                   value={infoNuevoVenta.producto}
-                    onChange={(e) => setInfoNuevoVenta({ ...infoNuevoVenta, producto: e.target.value })}>
-                  <option disabled value={0}>
-                    Elija una Opción
-                  </option>
-                  <option>Producto 1</option>
-                  <option>Producto 2</option>
-                  <option>Producto 3</option>
-                  <option>Producto 4</option>
-                  <option>Producto 5</option>
-                  <option>Producto 6</option>
+                    onChange={(e) => 
+                      setInfoNuevoVenta({ ...infoNuevoVenta, producto: e.target.value })
+                    }>
+                  {producto.map((u) => {
+                    return(
+                      <option key={nanoid()} value={u._id}>
+                      {u.nombre}
+                   </option>
+                    );
+                  }
+                  )}
                 </select>
               </label>
                 </td>
@@ -197,14 +249,17 @@ const TablaVentas = ({ listaVentas, setEjecutarConsulta }) => {
                 <select
                   className='bg-gray-50 border border-gray-200 p-2 rounded-lg m-2'
                   value={infoNuevoVenta.vendedor}
-                    onChage={(e) => 
-                      setInfoNuevoVenta({ ...infoNuevoVenta, vendedor: e.target.value }) 
-                      }>
-                     <option disabled value={0}>
-                       Elija una opción
-                     </option>
-                     <option>Vendedor 1</option>
-                     <option>Vendedor 2</option>
+                    onChange={(e) => 
+                      setInfoNuevoVenta({ ...infoNuevoVenta, vendedor: e.target.value })
+                    }>
+                  {usuario.map((u) => {
+                    return(
+                      <option key={nanoid()} value={u._id}>
+                      {u.nombre}
+                   </option>
+                    );
+                  }
+                  )}
                 </select>
                 </label>
               </td>
