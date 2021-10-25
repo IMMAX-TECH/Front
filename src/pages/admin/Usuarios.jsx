@@ -96,7 +96,7 @@ const Usuarios = () => {
         value={busqueda}
         onChange={(e) => setBusqueda(e.target.value)}
         placeholder='Buscar'
-        className='border-2  px-2 py-1 my-1 self-start rounded-md focus:outline-none focus:border-gray-700'
+        className='border-2  px-2 py-1 my-1 my-6 self-start rounded-md focus:outline-none focus:border-gray-700'
             /> 
             <table className="tabla ">
               <thead>
