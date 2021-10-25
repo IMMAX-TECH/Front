@@ -18,7 +18,7 @@ function App() {
     <Auth0Provider
       domain="immax-tech.us.auth0.com"
       clientId="NRcbZhvr6Nr7osjv0lHrD57DwL0Qz7wT"
-      redirectUri="http://localhost:3000/admin"
+      redirectUri="https://dry-fjord-33324.herokuapp.com/admin"
       audience="api-autenticacion-immax-tech-proyecto"
     >
       <div className='App'>
