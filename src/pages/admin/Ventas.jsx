@@ -204,7 +204,7 @@ const TablaVentas = ({ listaVentas, setEjecutarConsulta }) => {
 
             const options = {
               method: 'POST',
-              ulr: 'http://localhost:5000/ventas/',
+              ulr: 'http://localhost:3000/ventas/',
               headers: { 'Content-Type': 'application/json'},
               data: informacionCosolidada,
             };
