@@ -107,7 +107,7 @@ const TablaVentas = ({ listaVentas, setEjecutarConsulta }) => {
             <th className="bg-green-900 text-gray-200  "> Producto</th>
             <th className="bg-green-900 text-gray-200  "> Vendedor</th>
             <th className="bg-green-900 text-gray-200  "> Precio</th>
-            <th className="bg-green-900 text-gray-200  "> Acciones</th>  
+            <th className="bg-green-900 text-gray-200  "> Modificar</th>  
           </tr>
         </thead>
         <tbody>
@@ -220,52 +220,35 @@ const TablaVentas = ({ listaVentas, setEjecutarConsulta }) => {
           };
   
       
-        return (
-          <tr>
-            {edit ? (
-              <><>
-                <td>
-                </td>
-                <td>
-                <label className='flex flex-col py-2 text-black  font-semibold'>
-                <select
-                  className='bg-gray-50 border border-gray-200 p-2 rounded-lg m-2'
-                  value={infoNuevoVenta.producto}
-                    onChange={(e) => 
-                      setInfoNuevoVenta({ ...infoNuevoVenta, producto: e.target.value })
-                    }>
-                  <option disabled value={0}>
-              Elija una Opción
-            </option>
-            <option>Celular</option>
-            <option>Computador de Mesa</option>
-            <option>Portatil</option>
-            <option>Otro</option>
-                </select>
-              </label>
-                </td>
-                <td>
-                <label className='flex flex-col py-2 text black  front-semibold'>
-                <select
-                  className='bg-gray-50 border border-gray-200 p-2 rounded-lg m-2'
-                  value={infoNuevoVenta.vendedor}
+          return (
+            <tr>
+              {edit ? (
+                <>
+                 
+                  <td>
+                    
+                  </td>
+                  <td>
+                    <input
+                      className='bg-gray-50 border border-gray-600 p-2 rounded-lg m-2'
+                      type='text'
+                      value={infoNuevoVenta.producto}
+                      onChange={(e) => 
+                        setInfoNuevoVenta({ ...infoNuevoVenta, producto: e.target.value })
+                      }
+                    />
+                  </td>
+                  <td>
+                    <input
+                      className='bg-gray-50 border border-gray-600 p-2 rounded-lg m-2'
+                      type='text'
+                      value={infoNuevoVenta.vendedor}
                     onChange={(e) => 
                       setInfoNuevoVenta({ ...infoNuevoVenta, vendedor: e.target.value })
-                    }>
-                  <option disabled value={0}>
-             Elija una Opción
-           </option>
-           <option>Andres</option>
-           <option>Dairon</option>
-           <option>Miguel</option>
-           <option>Ximena</option>
-           <option>Paola</option>
-           <option>Otro</option>
-                </select>
-                </label>
-              </td>
-                </>
-                <td>
+                    }
+                    />
+                  </td>
+                  <td>
                 
                 <input
                     className='bg-gray-50 border border-gray-600 p-2 rounded-lg m-2'
@@ -274,18 +257,17 @@ const TablaVentas = ({ listaVentas, setEjecutarConsulta }) => {
                     onChange={(e) => setInfoNuevoVenta({ ...infoNuevoVenta, precio: e.target.value })} 
                   />
                 </td>
-              </>          
-              
-            ) : (
-              <>
-               
-               <td>{venta.factura}{venta._id}</td>
+                </>
+              ) : (
+                <>
+                 
+                 <td>{venta.factura}{venta._id}</td>
                 <td>{venta.producto}</td>
                 <td>{venta.vendedor}</td>
                 <td>{venta.precio}</td>
-               
-              </>
-            )}
+
+                </>
+              )}
             <td>
               <div className='flex w-full justify-around'>
                 {edit ? (
