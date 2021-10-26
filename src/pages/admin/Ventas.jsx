@@ -356,51 +356,33 @@ const FormularioCreacionVentas = ({ setMostrarTabla, listaVentas, setVentas }) =
     <div className='flex flex-col items-center justify-center'>
       <h2 className='text-2xl font-extrabold pb-4 text-gray-200'>Nueva Venta</h2>
       <form ref={form} onSubmit={submitForm} className='flex flex-col justify-center text-center'>
-        <label className='flex flex-col py-2 text-black  font-semibold' htmlFor='factura'>
-          Número de Factura
-          <input
+      <label className='flex flex-col py-2 text-black  font-semibold' htmlFor='factura'>
+      Número de Factura
+      <input
             name='factura'
             className='bg-gray-50 border border-gray-200 p-2 rounded-lg m-2'
             type='number'
             required/>
-        </label>
-        <label className='flex flex-col py-2 text-black  font-semibold' htmlFor='producto'>
-          Producto
-          <select
-            className='bg-gray-50 border border-gray-200 p-2 rounded-lg m-2'
-            name='producto'
-            required
-            defaultValue={0}>
-            <option disabled value={0}>
-              Elija una Opción
-            </option>
-            <option>Celular</option>
-            <option>Computador de Mesa</option>
-            <option>Portatil</option>
-            <option>Otro</option>
-          </select>
-        </label>
-        <label className='flex flex-col py-2 text-blac   front-seibold' htmlFor='vendedor'>
-          Vendedor
-          <select
-           className= 'bg-gray-50 border border-gray-200 p-2 rounded-lg m-2'
-           name='vendedor'
-           required
-           defaultValue={0}>   
-           <option disabled value={0}>
-             Elija una Opción
-           </option>
-           <option>Andres</option>
-           <option>Dairon</option>
-           <option>Miguel</option>
-           <option>Ximena</option>
-           <option>Paola</option>
-           <option>Otro</option>
-          </select>
-        </label>
-
-       
-        <label className='flex flex-col py-2 text-black  font-semibold' htmlFor='precio'>    
+              </label>
+              <label className='flex flex-col py-2 text-black font-semibold' htmlFor='producto'>
+              Producto
+                <input
+                  name='producto'
+                  className='bg-gray-50 border border-gray-200 p-2 rounded-lg m-2'
+                  type='text'
+                  
+                  />
+              </label>
+              <label className='flex flex-col py-2 text-black  font-semibold' htmlFor='vendedor'>
+                Vendedor
+                <input
+                  name='vendedor'
+                  className='bg-gray-50 border border-gray-200 p-2 rounded-lg m-2'
+                  type='text'
+                  
+                  />
+              </label>
+              <label className='flex flex-col py-2 text-black  font-semibold' htmlFor='precio'>    
           Precio de Venta
           <input
             name='precio'
@@ -410,16 +392,17 @@ const FormularioCreacionVentas = ({ setMostrarTabla, listaVentas, setVentas }) =
             max={1500000000}
             required/>
         </label>
-        
-        <button
-          type='submit'
-          className='col-span-2 py-3 bg-black font-semibold  text-gray-200 p-2 rounded shadow-md'
-        >
-          Guardar Venta
-        </button>
-      </form>
-    </div>
-  );
-};  
+              
+              <button
+                type='submit'
+                className='col-span-2 py-3 bg-black font-semibold  text-gray-200 p-2 rounded shadow-md'
+              >
+                Guardar
+              </button>
+            </form>
+          </div>
+        );
+      };
+  
 
 export default Ventas;
