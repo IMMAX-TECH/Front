@@ -204,7 +204,7 @@ const TablaVentas = ({ listaVentas, setEjecutarConsulta }) => {
 
             const options = {
               method: 'POST',
-              ulr: 'https://nameless-castle-28783.herokuapp.com/ventas/',
+              ulr: 'http://localhost:3000/ventas/',
               headers: { 'Content-Type': 'application/json'},
               data: informacionCosolidada,
             };
