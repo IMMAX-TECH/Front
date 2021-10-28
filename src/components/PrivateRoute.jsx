@@ -26,7 +26,7 @@ const PrivateRoute = ({children}) => {
         
     }, [isAuthenticated, getAccessTokenSilently])
 
-    if (isLoading) return <ReactLoading type='Bubbles' color='#111827' height={667} width={375} />;
+    if (isLoading) return <ReactLoading type='bubbles' color='#2E4053' height={667} width={375} />;
 
     return isAuthenticated ? (<>{children}</>):(
     <div>
