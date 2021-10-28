@@ -106,7 +106,7 @@ const Productos = () => {
               <thead>
                 <tr>
                   <th className="bg-blue-900 text-gray-200   "> Referencia</th>
-                  <th className="bg-blue-900 text-gray-200  "> Nombre</th>
+                  <th className="bg-blue-900 text-gray-200  "> Producto</th>
                   <th className="bg-blue-900 text-gray-200  "> Marca</th>
                   <th className="bg-blue-900 text-gray-200  "> Modelo</th>
                   <th className="bg-blue-900 text-gray-200  ">Modificar</th>  
@@ -315,7 +315,7 @@ const Productos = () => {
                   required/>
               </label>
               <label className='flex flex-col py-2 text-black font-semibold' htmlFor='nombre'>
-                Nombre
+                Producto
                 <input
                   name='nombre'
                   className='bg-gray-50 border border-gray-200 p-2 rounded-lg m-2'
