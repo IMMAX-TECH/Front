@@ -3,7 +3,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {nanoid} from 'nanoid';
 import { obtenerUsuario, editarUsuario, crearUsuario } from 'utils/api';
-
+import ReactLoading from 'react-loading';
 
 
 
@@ -14,18 +14,21 @@ const Usuarios = () => {
         const [usuarios, setUsuarios] = useState([]);
         const [textoBoton, setTextoBoton] = useState('Agregar Nuevo');
         const [ejecutarConsulta, setEjecutarConsulta] = useState(true);
-        
+        const [loading, setLoading] = useState(false);
       
         useEffect(() => {
           console.log('consulta', ejecutarConsulta);
+          setLoading(true);
           if (ejecutarConsulta) {
             obtenerUsuario(
               (response) => {
                 console.log('la respuesta que se recibio fue', response,);
                 setUsuarios(response.data);
+                setLoading(false);
               },
               (error) => {
                 console.error('Salio un error:', error);
+                setLoading(false);
               }
             );
             setEjecutarConsulta(false);
@@ -61,7 +64,7 @@ const Usuarios = () => {
               </div>
             </div>
             {mostrarTabla ? (
-              <TablaUsuarios listausuarios={usuarios} />
+              <TablaUsuarios loading={loading} listausuarios={usuarios} />
             ) : (
               <FormularioCreacionUsuarios
                 setMostrarTabla={setMostrarTabla}
@@ -74,7 +77,7 @@ const Usuarios = () => {
         );
       };
       
-      const TablaUsuarios = ({ listausuarios, setEjecutarConsulta }) => {
+      const TablaUsuarios = ({ loading, listausuarios, setEjecutarConsulta }) => {
         useEffect(() => {
           console.log('este es el listado de usuarios en el componente de tabla', listausuarios);
         }, [listausuarios]);
@@ -98,29 +101,34 @@ const Usuarios = () => {
         placeholder='Buscar'
         className='border-2  px-2 py-1 my-1 my-6 self-start rounded-md focus:outline-none focus:border-gray-700'
             /> 
-            <table className="tabla ">
-              <thead>
-                <tr>
-                  <th className="bg-indigo-900 text-gray-200   "> Nombre</th>
-                  <th className="bg-indigo-900 text-gray-200  "> Correo</th>
-                  <th className="bg-indigo-900 text-gray-200  "> Estado</th>
-                  <th className="bg-indigo-900 text-gray-200  "> Rol</th>
-                  <th className="bg-indigo-900 text-gray-200  ">Modificar</th>  
-                </tr>
-              </thead>
-              <tbody>
-                
-              {usuariosFiltrados.map((usuario,user) => {
-                  return (
-                  <FilaUsuario
-                    key={nanoid()}
-                    usuario={usuario}
-                    setEjecutarConsulta={setEjecutarConsulta}
-                  />
-                );
-              })} 
-              </tbody>
-            </table>
+            {loading?(
+            <ReactLoading type='Bubbles' color='#111827' height={667} width={375} />
+        ) : (
+          <table className="tabla ">
+          <thead>
+            <tr>
+              <th className="bg-indigo-900 text-gray-200   "> Nombre</th>
+              <th className="bg-indigo-900 text-gray-200  "> Correo</th>
+              <th className="bg-indigo-900 text-gray-200  "> Estado</th>
+              <th className="bg-indigo-900 text-gray-200  "> Rol</th>
+              <th className="bg-indigo-900 text-gray-200  ">Modificar</th>  
+            </tr>
+          </thead>
+          <tbody>
+            
+          {usuariosFiltrados.map((usuario,user) => {
+              return (
+              <FilaUsuario
+                key={nanoid()}
+                usuario={usuario}
+                setEjecutarConsulta={setEjecutarConsulta}
+              />
+            );
+          })} 
+          </tbody>
+        </table>
+        )}
+            
             <div className='flex flex-col w-full m-2 md:hidden'>
               {usuariosFiltrados.map((el) => {
               return (

@@ -3,7 +3,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {nanoid} from 'nanoid';
 import { obtenerProducto, crearProducto, editarProducto, eliminarProducto} from 'utils/api';
-
+import ReactLoading from 'react-loading';
 
 
 
@@ -15,16 +15,20 @@ const Productos = () => {
         const [productos, setProductos] = useState([]);
         const [textoBoton, setTextoBoton] = useState('Agregar Nuevo');
         const [ejecutarConsulta, setEjecutarConsulta] = useState(true);
+        const [loading, setLoading] = useState(false);
         useEffect(() => {
           console.log('consulta', ejecutarConsulta);
+          setLoading(true);
           if (ejecutarConsulta) {
             obtenerProducto(
               (response) => {
                 console.log('la respuesta que se recibio fue', response);
                 setProductos(response.data);
+                setLoading(false);
               },
               (error) => {
                 console.error('Salio un error:', error);
+                setLoading(false);
               }
             );
             setEjecutarConsulta(false);
@@ -64,7 +68,7 @@ const Productos = () => {
               </div>
             </div>
             {mostrarTabla ? (
-              <TablaProductos listaProductos={productos}  />
+              <TablaProductos loading={loading} listaProductos={productos}  />
             ) : (
               <FormularioCreacionProductos
                 setMostrarTabla={setMostrarTabla}
@@ -77,7 +81,7 @@ const Productos = () => {
         );
       };
       
-      const TablaProductos = ({ listaProductos, setEjecutarConsulta }) => {
+      const TablaProductos = ({ loading, listaProductos, setEjecutarConsulta }) => {
         useEffect(() => {
           console.log('este es el listado de productos en el componente de tabla', listaProductos);
         }, [listaProductos]);
@@ -101,7 +105,10 @@ const Productos = () => {
         onChange={(e) => setBusqueda(e.target.value)}
         placeholder='Buscar'
         className='border-2  px-2 py-1 my-6 self-start rounded-md focus:outline-none focus:border-gray-700'
-            />     
+            />   
+            {loading?(
+            <ReactLoading type='Bubbles' color='#111827' height={667} width={375} />
+        ) : (
             <table className="tabla ">
               <thead>
                 <tr>
@@ -124,7 +131,7 @@ const Productos = () => {
                  
               </tbody>
             </table>
-          
+        )}
            <div className='flex flex-col w-full m-2 md:hidden'>
            {productosFiltrados.map((el) => {
              return (

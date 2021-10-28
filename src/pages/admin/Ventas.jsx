@@ -7,23 +7,28 @@ import { obtenerProducto } from 'utils/api';
 import { obtenerUsuario } from 'utils/api';
 import Productos from './Productos';
 import axios from 'axios';
+import ReactLoading from 'react-loading';
 
 const Ventas = () => {
   const [mostrarTabla, setMostrarTabla] = useState(true);
   const [ventas, setVentas] = useState([]);
   const [textoBoton, setTextoBoton] = useState('Agregar Venta');
   const [ejecutarConsulta, setEjecutarConsulta] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     console.log('consulta', ejecutarConsulta);
+    setLoading(true);
     if (ejecutarConsulta) {
       obtenerVenta(
         (response) => {
           console.log('la respuesta que se recibio fue', response);
           setVentas(response.data);
+          setLoading(false);
         },
         (error) => {
           console.error('Salio un error:', error);
+          setLoading(false);
         }
       );
       setEjecutarConsulta(false);
@@ -64,7 +69,7 @@ const Ventas = () => {
         </button>
       </div>
       {mostrarTabla ? (
-        <TablaVentas listaVentas={ventas} />
+        <TablaVentas loading={loading} listaVentas={ventas} />
       ) : (
         <FormularioCreacionVentas
           setMostrarTabla={setMostrarTabla}
@@ -77,7 +82,7 @@ const Ventas = () => {
   );
 };
 
-const TablaVentas = ({ listaVentas, setEjecutarConsulta }) => {
+const TablaVentas = ({ loading, listaVentas, setEjecutarConsulta }) => {
   useEffect(() => {
     console.log('este es el listado de ventas en el componente de tabla', listaVentas);
   }, [listaVentas]);
@@ -100,6 +105,9 @@ const TablaVentas = ({ listaVentas, setEjecutarConsulta }) => {
         placeholder='Buscar'
         className='border-2  px-2 py-1 my-6 self-start rounded-md focus:outline-none focus:border-gray-700'
             /> 
+      {loading?(
+            <ReactLoading type='Bubbles' color='#111827' height={667} width={375} />
+        ) : (
       <table className="tabla rounded">
         <thead>
           <tr>
@@ -121,6 +129,7 @@ const TablaVentas = ({ listaVentas, setEjecutarConsulta }) => {
               })} 
         </tbody>
       </table>
+      )}
       <div className='flex flex-col w-full m-2 md:hidden'>
            {ventasFiltrados.map((el) => {
              return (
