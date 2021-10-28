@@ -102,7 +102,7 @@ const Usuarios = () => {
         className='border-2  px-2 py-1 my-1 my-6 self-start rounded-md focus:outline-none focus:border-gray-700'
             /> 
             {loading?(
-            <ReactLoading type='bubbles' color='#111827' height={667} width={375} />
+            <ReactLoading type='bubbles' color='#2E4053' height={667} width={375} />
         ) : (
           <table className="tabla ">
           <thead>
